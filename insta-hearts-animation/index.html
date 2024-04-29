@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .full-size-container {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hearts-container {
+            height: 600px;
+            width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .congrats-button {
+            border: none;
+            background-color: salmon;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            transition: 300ms ease-in-out;
+            font-size: medium;
+            font-weight: 600;
+            width: 300px;
+            height: 40px;
+        }
+
+        .congrats-button:hover {
+            background-color: rgb(238, 83, 66);
+        }
+
+        @keyframes blowUp {
+            0% {
+                transform: translateY(120%) scale(var(--scale));
+            }
+
+            100% {
+                transform: translateY(-1000px) scale(var(--scale));
+
+            }
+        }
+
+        .heart {
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 25px;
+            position: absolute;
+            bottom: var(--bottom);
+            left: var(--left);
+        }
+
+        .blow-up {
+            animation: blowUp 3s ease-in-out forwards;
+            animation-delay: var(--time);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="full-size-container">
+
+        <div class="hearts-container">
+
+        </div>
+
+        <button class="congrats-button" id="show"> Congratulate</button>
+    </div>
+
+
+    <script>
+
+        const heartContainerRef = document.querySelector('.hearts-container');
+
+        function showHearts() {
+            heartContainerRef.innerHTML = "";
+            for (let i = 0; i < 20; i++) {
+                var leftNum = Math.floor(Math.random() * (300 + 1));
+                var leftPixel = leftNum + 'px';
+                var bottomNum = Math.floor(Math.random() * (300 + 1));
+                var bottomPixel = bottomNum + 'px';
+                var randomNumberScale = (Math.floor(Math.random() * 20) + 10) / 10;
+                heartContainerRef.innerHTML += `
+                <div class="heart blow-up" style="--left:${leftPixel}; --bottom:${"-" + bottomPixel}; --time:${(i <= 10) ? 0 + "ms" : leftNum + "ms"
+                    }; --scale:${randomNumberScale} ">❤️</div>
+            `;
+            }
+
+        }
+
+
+        const button = document.getElementById('show')
+        button.addEventListener('click', showHearts)
+
+
+
+    </script>
+
+</body>
+
+</html>
